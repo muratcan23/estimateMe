@@ -8,6 +8,7 @@ const Navbar = () => {
       whiteSpace="-moz-pre-wrap"
       bg="#1E1914"
       justifyContent="center"
+      alignItems="center"
     >
       <Flex>
         <Text
@@ -18,7 +19,7 @@ const Navbar = () => {
         >
           Estimate
         </Text>
-        <Text fontFamily="heading" fontSize="25px" color="#CFD746">
+        <Text fontFamily="heading" fontSize="24px" color="#CFD746">
           Me
         </Text>
       </Flex>
