@@ -1,11 +1,10 @@
-import { ChakraProvider, Flex, Text } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import Board from "./Components/Board";
 
 function App() {
   return (
     <ChakraProvider>
-      <Flex h="70vh" w="75%" border="2px solid green" mx="10%" mt="50px">
-        <Text>EstimateME</Text>
-      </Flex>
+      <Board />
     </ChakraProvider>
   );
 }
