@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import User from "./User";
 
 const Board = () => {
@@ -14,8 +14,6 @@ const Board = () => {
         margin="3%" // Add margin to create the gap
       >
         <User />
-        <Text mt="10px">EstimateME</Text>{" "}
-        {/* Add some margin between User and Text */}
       </Flex>
     </Flex>
   );

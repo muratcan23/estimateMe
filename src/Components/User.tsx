@@ -1,17 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react";
-import HamburgerIcon from "./icons/HamburgerIcon";
+import { Box, Flex, Img } from "@chakra-ui/react";
 
 const User = () => {
   return (
     <Flex w="100%" h="10%" bg="#8F7F3F">
-      <Box
-        as="button"
-        _hover={{ background: "#5A5D56" }}
-        borderRadius="4px"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <HamburgerIcon color="white" />
+      <Box h="42px" w="42px" bg="#8F7F3F">
+        <Img src="https://cdn2.vectorstock.com/i/1000x1000/20/61/user-sign-orange-icon-on-black-vector-13392061.jpg"></Img>
       </Box>
     </Flex>
   );
