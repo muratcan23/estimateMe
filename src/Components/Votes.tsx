@@ -48,23 +48,60 @@ type VotesProps = {};
 
 const Votes: React.FC<VotesProps> = () => {
   return (
-    <Flex h="45px" w="100%" alignItems="center" justifyContent="flex-start">
-      {ButtonData.map((button) => (
+    <Flex
+      h="125px"
+      w="100%"
+      mt="15px"
+      alignItems="center"
+      flexDirection="column"
+    >
+      <Flex mb="auto" mr="auto" ml="10px">
+        {ButtonData.map((button) => (
+          <Box
+            key={button.text}
+            as="button"
+            h="35px"
+            w="40px"
+            borderRadius="5px"
+            bg="#7E8D6B"
+            _hover={{ bg: "#217A54" }}
+            m="10px 0 auto 15px"
+          >
+            <Text color="white" fontSize="2xl">
+              {button.text}
+            </Text>
+          </Box>
+        ))}
+      </Flex>
+      <Flex h="50px" w="100%" mt="auto" mr="auto">
         <Box
-          key={button.text}
+          h="35px"
           as="button"
-          h="90%"
-          w="2vw"
-          borderRadius="5px"
-          bg="#7E8D6B"
-          _hover={{ bg: "#217A54" }}
-          m="10px 0 auto 15px"
+          ml="25px"
+          background="#4F608B"
+          borderRadius="7px"
+          p={1}
+          _hover={{ bg: "green" }}
         >
-          <Text color="white" fontSize="2xl">
-            {button.text}
+          <Text color="white" fontSize="18px">
+            Reveal votes
           </Text>
         </Box>
-      ))}
+        <Box
+          h="35px"
+          as="button"
+          ml="auto"
+          mr="30px"
+          bg="#9F9791"
+          borderRadius="7px"
+          p={1}
+          _hover={{ bg: "gray" }}
+        >
+          <Text color="white" fontSize="18px">
+            Reset Estimation
+          </Text>
+        </Box>
+      </Flex>
     </Flex>
   );
 };
