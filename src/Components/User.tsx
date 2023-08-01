@@ -1,11 +1,24 @@
-import { Box, Flex, Img } from "@chakra-ui/react";
+import { Flex, HStack, Img, Text } from "@chakra-ui/react";
 
 const User = () => {
   return (
-    <Flex w="100%" h="10%" bg="#8F7F3F">
-      <Box h="42px" w="42px" bg="#8F7F3F">
-        <Img src="https://cdn2.vectorstock.com/i/1000x1000/20/61/user-sign-orange-icon-on-black-vector-13392061.jpg"></Img>
-      </Box>
+    <Flex
+      w="100%"
+      h="10%"
+      bg="#8F5F3F"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <HStack h="44px" w="44px" bg="#8F7F3F" mr="auto" ml="10px">
+        <Img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png"
+          border="2px solid black"
+          borderRadius="5px"
+        ></Img>
+        <Text fontFamily="heading" fontSize="2xl" fontWeight="bold">
+          User
+        </Text>
+      </HStack>
     </Flex>
   );
 };

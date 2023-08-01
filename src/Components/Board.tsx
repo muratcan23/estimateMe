@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import User from "./User";
+import Votes from "./Votes";
 
 const Board = () => {
   return (
@@ -14,6 +15,7 @@ const Board = () => {
         margin="3%" // Add margin to create the gap
       >
         <User />
+        <Votes />
       </Flex>
     </Flex>
   );
