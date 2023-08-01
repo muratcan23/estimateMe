@@ -1,61 +1,70 @@
-import { Button, Flex, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
-const Votes = () => {
+type ButtonItem = {
+  text: string;
+  value: string | number;
+};
+
+const ButtonData: ButtonItem[] = [
+  {
+    text: "0",
+    value: 0,
+  },
+  {
+    text: "1",
+    value: 1,
+  },
+  {
+    text: "2",
+    value: 2,
+  },
+  {
+    text: "3",
+    value: 3,
+  },
+  {
+    text: "4",
+    value: 4,
+  },
+  {
+    text: "5",
+    value: 5,
+  },
+  {
+    text: "8",
+    value: 8,
+  },
+  {
+    text: "13",
+    value: 13,
+  },
+  {
+    text: "?",
+    value: "",
+  },
+];
+
+type VotesProps = {};
+
+const Votes: React.FC<VotesProps> = () => {
   return (
-    <Flex justifyContent="flex-start" alignItems="flex-start">
-      <Wrap
-        h="50px"
-        mt="20px"
-        // mr="600px"
-        spacing="12px"
-        border="2px solid white"
-      >
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            0
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            1
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            2
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            3
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            4
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            5
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            8
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            13
-          </Button>
-        </WrapItem>
-        <WrapItem>
-          <Button colorScheme="orange" size="lg">
-            ?
-          </Button>
-        </WrapItem>
-      </Wrap>
+    <Flex h="45px" w="100%" alignItems="center" justifyContent="flex-start">
+      {ButtonData.map((button) => (
+        <Box
+          key={button.text}
+          as="button"
+          h="90%"
+          w="2vw"
+          borderRadius="5px"
+          bg="#7E8D6B"
+          _hover={{ bg: "#217A54" }}
+          m="10px 0 auto 15px"
+        >
+          <Text color="white" fontSize="2xl">
+            {button.text}
+          </Text>
+        </Box>
+      ))}
     </Flex>
   );
 };
