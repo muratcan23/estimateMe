@@ -1,4 +1,17 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Flex,
+  HStack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
 
 type ButtonItem = {
   text: string;
@@ -47,6 +60,31 @@ const ButtonData: ButtonItem[] = [
 type VotesProps = {};
 
 const Votes: React.FC<VotesProps> = () => {
+  const [username, setUsername] = useState<string | null>(null);
+  const [vote, setVote] = useState<string | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = (buttonValue: string | number) => {
+    if (typeof buttonValue === "number") {
+      onOpen();
+      setVote(buttonValue.toString());
+    }
+  };
+  const handleAlertDialogClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const form = e.currentTarget.closest("form");
+    if (!form) return;
+
+    e.preventDefault();
+    const enteredUsername = form.username.value;
+    if (enteredUsername !== null && enteredUsername.trim() !== "") {
+      setUsername(enteredUsername);
+      onClose();
+    } else {
+      alert("You must enter a valid username.");
+    }
+  };
+
   return (
     <Flex
       h="125px"
@@ -66,6 +104,7 @@ const Votes: React.FC<VotesProps> = () => {
             bg="#7E8D6B"
             _hover={{ bg: "#217A54" }}
             m="10px 0 auto 15px"
+            onClick={() => handleButtonClick(button.value)}
           >
             <Text color="white" fontSize="2xl">
               {button.text}
@@ -102,6 +141,51 @@ const Votes: React.FC<VotesProps> = () => {
           </Text>
         </Box>
       </Flex>
+
+      <Flex alignItems="flex-start" flexDirection="column" mt="auto">
+        <HStack spacing="10px">
+          {username && (
+            <Text color="white" fontSize="20px" mt="10px">
+              Username : {username}
+            </Text>
+          )}
+          {vote && (
+            <Text color="white" fontSize="20px" mt="10px">
+              Vote: {vote}
+            </Text>
+          )}
+        </HStack>
+      </Flex>
+
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <form>
+              <AlertDialogHeader>Enter Your Username</AlertDialogHeader>
+              <AlertDialogBody>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  ref={cancelRef}
+                />
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <button type="button" onClick={() => onClose()}>
+                  Cancel
+                </button>
+                <button type="button" onClick={handleAlertDialogClose}>
+                  OK
+                </button>
+              </AlertDialogFooter>
+            </form>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Flex>
   );
 };
