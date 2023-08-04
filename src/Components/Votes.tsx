@@ -117,6 +117,7 @@ const Votes: React.FC<VotesProps> = () => {
           h="35px"
           as="button"
           ml="25px"
+          mt="15px"
           background="#4F608B"
           borderRadius="7px"
           p={1}
@@ -131,6 +132,7 @@ const Votes: React.FC<VotesProps> = () => {
           as="button"
           ml="auto"
           mr="30px"
+          mt="15px"
           bg="#9F9791"
           borderRadius="7px"
           p={1}
@@ -142,7 +144,15 @@ const Votes: React.FC<VotesProps> = () => {
         </Box>
       </Flex>
 
-      <Flex alignItems="flex-start" flexDirection="column" mt="auto">
+      <Flex
+        alignItems="flex-start"
+        flexDirection="column"
+        mr="auto"
+        mt="40px"
+        border="2px solid red
+      "
+        w="50%"
+      >
         <HStack spacing="10px">
           {username && (
             <Text color="white" fontSize="20px" mt="10px">
