@@ -57,13 +57,18 @@ const ButtonData: ButtonItem[] = [
   },
 ];
 
-type VotesProps = {};
+type VoteEntry = {
+  username: string;
+  vote: string;
+};
 
+type VotesProps = {};
 const Votes: React.FC<VotesProps> = () => {
-  const [username, setUsername] = useState<string | null>(null);
-  const [vote, setVote] = useState<string | null>(null);
+  const [voteEntries, setVoteEntries] = useState<VoteEntry[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLInputElement>(null);
+  const [username, setUsername] = useState<string | null>(null);
+  const [vote, setVote] = useState<string | null>(null);
 
   const handleButtonClick = (buttonValue: string | number) => {
     if (typeof buttonValue === "number") {
@@ -71,6 +76,7 @@ const Votes: React.FC<VotesProps> = () => {
       setVote(buttonValue.toString());
     }
   };
+
   const handleAlertDialogClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     const form = e.currentTarget.closest("form");
     if (!form) return;
@@ -79,12 +85,16 @@ const Votes: React.FC<VotesProps> = () => {
     const enteredUsername = form.username.value;
     if (enteredUsername !== null && enteredUsername.trim() !== "") {
       setUsername(enteredUsername);
+      // Add a new entry to the voteEntries array
+      setVoteEntries((prevEntries) => [
+        ...prevEntries,
+        { username: enteredUsername, vote: vote || "" },
+      ]);
       onClose();
     } else {
       alert("You must enter a valid username.");
     }
   };
-
   return (
     <Flex
       h="125px"
@@ -149,22 +159,19 @@ const Votes: React.FC<VotesProps> = () => {
         flexDirection="column"
         mr="auto"
         mt="40px"
-        border="2px solid red
-      "
+        border="2px solid red"
         w="50%"
       >
-        <HStack spacing="10px">
-          {username && (
+        {voteEntries.map((entry, index) => (
+          <HStack key={index} spacing="10px">
             <Text color="white" fontSize="20px" mt="10px">
-              Username : {username}
+              Username : {entry.username}
             </Text>
-          )}
-          {vote && (
             <Text color="white" fontSize="20px" mt="10px">
-              Vote: {vote}
+              Vote: {entry.vote}
             </Text>
-          )}
-        </HStack>
+          </HStack>
+        ))}
       </Flex>
 
       <AlertDialog
