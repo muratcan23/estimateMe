@@ -18,6 +18,7 @@ type ButtonItem = {
   value: string | number;
 };
 
+//ButtonData will be mapped
 const ButtonData: ButtonItem[] = [
   {
     text: "0",
@@ -85,14 +86,14 @@ const Votes: React.FC<VotesProps> = () => {
     const enteredUsername = form.username.value;
     if (enteredUsername !== null && enteredUsername.trim() !== "") {
       setUsername(enteredUsername);
-      // Add a new entry to the voteEntries array
+      // Add a new entry
       setVoteEntries((prevEntries) => [
         ...prevEntries,
         { username: enteredUsername, vote: vote || "" },
       ]);
       onClose();
     } else {
-      alert("You must enter a valid username.");
+      alert("You must enter a valid username!");
     }
   };
   return (
@@ -146,7 +147,7 @@ const Votes: React.FC<VotesProps> = () => {
           bg="#9F9791"
           borderRadius="7px"
           p={1}
-          _hover={{ bg: "gray" }}
+          _hover={{ bg: "tomato" }}
         >
           <Text color="white" fontSize="18px">
             Reset Estimation
@@ -159,17 +160,27 @@ const Votes: React.FC<VotesProps> = () => {
         flexDirection="column"
         mr="auto"
         mt="40px"
-        border="2px solid red"
+        ml="15px"
         w="50%"
       >
         {voteEntries.map((entry, index) => (
-          <HStack key={index} spacing="10px">
-            <Text color="white" fontSize="20px" mt="10px">
-              Username : {entry.username}
-            </Text>
-            <Text color="white" fontSize="20px" mt="10px">
-              Vote: {entry.vote}
-            </Text>
+          <HStack key={index} spacing="15px">
+            <HStack alignItems="center" justifyContent="center">
+              <Text color="white" fontSize="20px">
+                Username :
+              </Text>
+              <Text color="#0BC6E3" fontSize="24px">
+                {entry.username}
+              </Text>
+            </HStack>
+            <HStack alignItems="center" justifyContent="center" ml="10px">
+              <Text color="white" fontSize="20px">
+                Vote :
+              </Text>
+              <Text color="#0BC6E3" fontSize="24px">
+                {entry.vote}
+              </Text>
+            </HStack>
           </HStack>
         ))}
       </Flex>
@@ -180,9 +191,11 @@ const Votes: React.FC<VotesProps> = () => {
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent bg="#B4B26D">
             <form>
-              <AlertDialogHeader>Enter Your Username</AlertDialogHeader>
+              <AlertDialogHeader textColor="#F0F2F5">
+                Enter Your Username
+              </AlertDialogHeader>
               <AlertDialogBody>
                 <input
                   type="text"
@@ -192,12 +205,34 @@ const Votes: React.FC<VotesProps> = () => {
                 />
               </AlertDialogBody>
               <AlertDialogFooter>
-                <button type="button" onClick={() => onClose()}>
-                  Cancel
-                </button>
-                <button type="button" onClick={handleAlertDialogClose}>
+                <Box
+                  h="35px"
+                  w="35px"
+                  as="button"
+                  onClick={handleAlertDialogClose}
+                  textColor="yellow"
+                  bg="#BA3257"
+                  p="2px"
+                  mr="auto"
+                  border="2px solid black"
+                  borderRadius="50%"
+                  _hover={{ bg: "white", textColor: "black" }}
+                >
                   OK
-                </button>
+                </Box>
+                <Box
+                  as="button"
+                  onClick={() => onClose()}
+                  textColor="yellow"
+                  bg="gray"
+                  p="2px"
+                  ml="auto"
+                  border="2px solid black"
+                  borderRadius="5px"
+                  _hover={{ bg: "white", textColor: "black" }}
+                >
+                  Cancel
+                </Box>
               </AlertDialogFooter>
             </form>
           </AlertDialogContent>
