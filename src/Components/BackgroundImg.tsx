@@ -16,7 +16,7 @@ const BackgroundImg = () => {
       backgroundSize="cover"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      filter="brightness(0.3) blur(3px) "
+      filter="brightness(0.33) blur(4px) "
     />
   );
 };
