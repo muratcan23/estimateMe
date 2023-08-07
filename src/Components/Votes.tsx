@@ -148,6 +148,7 @@ const Votes: React.FC<VotesProps> = () => {
           borderRadius="7px"
           p={1}
           _hover={{ bg: "tomato" }}
+          onClick={() => window.location.reload()}
         >
           <Text color="white" fontSize="18px">
             Reset Estimation
