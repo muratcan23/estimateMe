@@ -77,6 +77,15 @@ const Votes: React.FC<VotesProps> = () => {
       setVote(buttonValue.toString());
     }
   };
+  //Calculate average
+  const calculateAverage = () => {
+    const votes = voteEntries
+      .map((entry) => parseFloat(entry.vote))
+      .filter((vote) => !isNaN(vote));
+    const totalVotes = votes.reduce((total, vote) => total + vote, 0);
+    const average = totalVotes / votes.length;
+    return average.toFixed(2); // Return average rounded to 2 decimal places
+  };
 
   const handleAlertDialogClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     const form = e.currentTarget.closest("form");
@@ -239,6 +248,9 @@ const Votes: React.FC<VotesProps> = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
+      <Text color="#0BC6E3" fontSize="24px" mt="15px">
+        Average Vote: {calculateAverage()}
+      </Text>
     </Flex>
   );
 };
