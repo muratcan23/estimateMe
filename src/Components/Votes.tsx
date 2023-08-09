@@ -84,7 +84,7 @@ const Votes: React.FC<VotesProps> = () => {
       .filter((vote) => !isNaN(vote));
     const totalVotes = votes.reduce((total, vote) => total + vote, 0);
     const average = totalVotes / votes.length;
-    return average.toFixed(0);
+    return average.toFixed(2);
   };
 
   const handleAlertDialogClose = (e: React.MouseEvent<HTMLButtonElement>) => {
