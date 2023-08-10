@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import Results from "./Results";
+
 import User from "./User";
 import Votes from "./Votes";
 
@@ -17,7 +17,6 @@ const Board = () => {
       >
         <User />
         <Votes />
-        <Results />
       </Flex>
     </Flex>
   );
