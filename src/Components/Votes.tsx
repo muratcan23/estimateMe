@@ -6,6 +6,7 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Box,
+  Divider,
   Flex,
   HStack,
   Text,
@@ -70,12 +71,18 @@ const Votes: React.FC<VotesProps> = () => {
   const cancelRef = useRef<HTMLInputElement>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [vote, setVote] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleButtonClick = (buttonValue: string | number) => {
     if (typeof buttonValue === "number") {
       onOpen();
       setVote(buttonValue.toString());
     }
+  };
+
+  //See results
+  const toggleVisibleResults = () => {
+    setIsVisible(!isVisible);
   };
   //Calculate average
   const calculateAverage = () => {
@@ -113,6 +120,7 @@ const Votes: React.FC<VotesProps> = () => {
       alignItems="center"
       flexDirection="column"
     >
+      //mapped data buttons
       <Flex mb="auto" mr="auto" ml="10px">
         {ButtonData.map((button) => (
           <Box
@@ -142,6 +150,7 @@ const Votes: React.FC<VotesProps> = () => {
           borderRadius="7px"
           p={1}
           _hover={{ bg: "green" }}
+          onClick={toggleVisibleResults}
         >
           <Text color="white" fontSize="18px">
             Reveal votes
@@ -164,37 +173,79 @@ const Votes: React.FC<VotesProps> = () => {
           </Text>
         </Box>
       </Flex>
+      {isVisible && (
+        <HStack w="95%" mt="20px" ml="20px" mr="auto">
+          //Users and votes
+          <Flex
+            alignItems="flex-start"
+            flexDirection="column"
+            mr="auto"
+            mb="auto"
+            w="50%"
+            h="100%"
+            border="1px solid white"
+          >
+            {voteEntries.map((entry, index) => (
+              <>
+                <HStack key={index} spacing="15px">
+                  <HStack alignItems="center" justifyContent="center" ml="7px">
+                    <Text color="white" fontSize="20px">
+                      Username :
+                    </Text>
+                    <Text color="#0BC6E3" fontSize="24px">
+                      {entry.username}
+                    </Text>
+                  </HStack>
 
-      <Flex
-        alignItems="flex-start"
-        flexDirection="column"
-        mr="auto"
-        mt="40px"
-        ml="15px"
-        w="50%"
-      >
-        {voteEntries.map((entry, index) => (
-          <HStack key={index} spacing="15px">
-            <HStack alignItems="center" justifyContent="center">
-              <Text color="white" fontSize="20px">
-                Username :
+                  <HStack alignItems="center" justifyContent="center" ml="10px">
+                    <Text color="white" fontSize="20px">
+                      Vote :
+                    </Text>
+                    <Text color="#0BC6E3" fontSize="24px">
+                      {entry.vote}
+                    </Text>
+                  </HStack>
+                </HStack>
+                {index !== voteEntries.length - 1 && <Divider mt="10px" />}
+              </>
+            ))}
+          </Flex>
+          //Results
+          <Flex
+            border="1px solid white"
+            flexDirection="column"
+            ml="auto"
+            mr="-20px"
+            h="100%"
+            w="30%"
+          >
+            <Flex bg="grey" h="15%" alignItems="center">
+              <Text color="white" ml="10px" fontWeight="medium" fontSize="xl">
+                Estimation Results
               </Text>
-              <Text color="#0BC6E3" fontSize="24px">
-                {entry.username}
-              </Text>
-            </HStack>
-            <HStack alignItems="center" justifyContent="center" ml="10px">
-              <Text color="white" fontSize="20px">
-                Vote :
-              </Text>
-              <Text color="#0BC6E3" fontSize="24px">
-                {entry.vote}
-              </Text>
-            </HStack>
-          </HStack>
-        ))}
-      </Flex>
+            </Flex>
 
+            <Flex mt="10px" ml="10px">
+              <Text color="white" fontSize="18px" fontWeight="semibold">
+                Average -{" "}
+                <span style={{ color: "tomato" }}>{calculateAverage()} </span>
+              </Text>
+            </Flex>
+            <Flex mt="10px" ml="10px">
+              <Text color="white" fontSize="18px" fontWeight="semibold">
+                Disagreement -
+              </Text>
+            </Flex>
+            <Flex ml="10px" mt="20px">
+              <Text color="white" fontWeight="bold" fontSize="18px">
+                Vote Summary
+              </Text>
+
+              <Text>votes used:</Text>
+            </Flex>
+          </Flex>
+        </HStack>
+      )}
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
@@ -248,36 +299,6 @@ const Votes: React.FC<VotesProps> = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-
-      <Flex
-        w="500px"
-        h="250px"
-        border="1px solid white"
-        m="10px 30px 0 auto"
-        flexDirection="column"
-      >
-        <Flex bg="grey" w="100%" h="15%" alignItems="center">
-          <Text color="white" ml="10px" fontWeight="medium" fontSize="xl">
-            Estimation Results
-          </Text>
-        </Flex>
-
-        <Flex mt="10px" ml="10px">
-          <Text color="white" fontSize="md" fontWeight="semibold">
-            Average - <span color="tomato">{calculateAverage()} </span>
-          </Text>
-        </Flex>
-        <Flex mt="10px" ml="10px">
-          <Text color="white" fontSize="md" fontWeight="semibold">
-            Disagreement -
-          </Text>
-        </Flex>
-        <Flex ml="10px" mt="20px">
-          <Text color="white" fontWeight="bold" fontSize="18px">
-            Vote Summary
-          </Text>
-        </Flex>
-      </Flex>
     </Flex>
   );
 };
