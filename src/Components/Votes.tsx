@@ -248,9 +248,7 @@ const Votes: React.FC<VotesProps> = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-      <Text color="#0BC6E3" fontSize="24px" mt="15px">
-        Average Vote: {calculateAverage()}
-      </Text>
+
       <Flex
         w="500px"
         h="250px"
@@ -266,7 +264,7 @@ const Votes: React.FC<VotesProps> = () => {
 
         <Flex mt="10px" ml="10px">
           <Text color="white" fontSize="md" fontWeight="semibold">
-            Average -
+            Average - <span color="tomato">{calculateAverage()} </span>
           </Text>
         </Flex>
         <Flex mt="10px" ml="10px">
