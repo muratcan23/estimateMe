@@ -152,8 +152,11 @@ const Votes: React.FC<VotesProps> = () => {
           _hover={{ bg: "green" }}
           onClick={toggleVisibleResults}
         >
-          <Text color="white" fontSize="18px">
-            Reveal votes
+          <Text
+            fontSize="18px"
+            style={{ color: isVisible ? "yellow" : "white" }}
+          >
+            {isVisible ? "Hide votes" : "Reveal votes"}
           </Text>
         </Box>
         <Box
