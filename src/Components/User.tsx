@@ -1,6 +1,10 @@
 import { Flex, HStack, Img, Text } from "@chakra-ui/react";
 
-const User = () => {
+type UserProps = {
+  username: string;
+};
+
+const User: React.FC<UserProps> = ({ username }) => {
   return (
     <Flex
       w="100%"
@@ -16,7 +20,7 @@ const User = () => {
           borderRadius="5px"
         ></Img>
         <Text fontFamily="heading" fontSize="2xl" fontWeight="bold">
-          User
+          {username}
         </Text>
       </HStack>
     </Flex>

@@ -13,6 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
+import User from "./User";
 
 type ButtonItem = {
   text: string;
@@ -111,197 +112,232 @@ const Votes: React.FC<VotesProps> = () => {
     } else {
       alert("You must enter a valid username!");
     }
+    //console vote entries
+    console.log(voteEntries);
   };
   return (
-    <Flex
-      h="125px"
-      w="100%"
-      mt="15px"
-      alignItems="center"
-      flexDirection="column"
-    >
-      //mapped data buttons
-      <Flex mb="auto" mr="auto" ml="10px">
-        {ButtonData.map((button) => (
-          <Box
-            key={button.text}
-            as="button"
-            h="35px"
-            w="40px"
-            borderRadius="5px"
-            bg="#7E8D6B"
-            _hover={{ bg: "#217A54" }}
-            m="10px 0 auto 15px"
-            onClick={() => handleButtonClick(button.value)}
-          >
-            <Text color="white" fontSize="2xl">
-              {button.text}
-            </Text>
-          </Box>
-        ))}
-      </Flex>
-      <Flex h="50px" w="100%" mt="auto" mr="auto">
-        <Box
-          h="35px"
-          as="button"
-          ml="25px"
+    <Flex flex="1" alignItems="center" justifyContent="center">
+      <Flex
+        h="75vh"
+        w="90%"
+        border="4px solid #8F7F3F"
+        borderRadius="4px"
+        alignItems="center"
+        flexDirection="column"
+        margin="3%"
+      >
+        {/* <User {voteEntries[0].}/> */}
+        {voteEntries.length > 0 ? (
+          <User username={voteEntries[0].username} />
+        ) : (
+          <User username="User" />
+        )}
+        <Flex
+          h="125px"
+          w="100%"
           mt="15px"
-          background="#4F608B"
-          borderRadius="7px"
-          p={1}
-          _hover={{ bg: "green" }}
-          onClick={toggleVisibleResults}
+          alignItems="center"
+          flexDirection="column"
         >
-          <Text
-            fontSize="18px"
-            style={{ color: isVisible ? "yellow" : "white" }}
-          >
-            {isVisible ? "Hide votes" : "Reveal votes"}
-          </Text>
-        </Box>
-        <Box
-          h="35px"
-          as="button"
-          ml="auto"
-          mr="30px"
-          mt="15px"
-          bg="#9F9791"
-          borderRadius="7px"
-          p={1}
-          _hover={{ bg: "tomato" }}
-          onClick={() => window.location.reload()}
-        >
-          <Text color="white" fontSize="18px">
-            Reset Estimation
-          </Text>
-        </Box>
-      </Flex>
-      {isVisible && (
-        <HStack w="95%" mt="20px" ml="20px" mr="auto">
-          //Users and votes
-          <Flex
-            alignItems="flex-start"
-            flexDirection="column"
-            mr="auto"
-            mb="auto"
-            w="50%"
-            h="100%"
-            border="1px solid white"
-          >
-            {voteEntries.map((entry, index) => (
-              <>
-                <HStack key={index} spacing="15px">
-                  <HStack alignItems="center" justifyContent="center" ml="7px">
-                    <Text color="white" fontSize="20px">
-                      Username :
-                    </Text>
-                    <Text color="#0BC6E3" fontSize="24px">
-                      {entry.username}
-                    </Text>
-                  </HStack>
-
-                  <HStack alignItems="center" justifyContent="center" ml="10px">
-                    <Text color="white" fontSize="20px">
-                      Vote :
-                    </Text>
-                    <Text color="#0BC6E3" fontSize="24px">
-                      {entry.vote}
-                    </Text>
-                  </HStack>
-                </HStack>
-                {index !== voteEntries.length - 1 && <Divider mt="10px" />}
-              </>
+          //mapped data buttons
+          <Flex mb="auto" mr="auto" ml="10px">
+            {ButtonData.map((button) => (
+              <Box
+                key={button.text}
+                as="button"
+                h="35px"
+                w="40px"
+                borderRadius="5px"
+                bg="#7E8D6B"
+                _hover={{ bg: "#217A54" }}
+                m="10px 0 auto 15px"
+                onClick={() => handleButtonClick(button.value)}
+              >
+                <Text color="white" fontSize="2xl">
+                  {button.text}
+                </Text>
+              </Box>
             ))}
           </Flex>
-          //Results
-          <Flex
-            border="1px solid white"
-            flexDirection="column"
-            ml="auto"
-            mr="-20px"
-            h="100%"
-            w="30%"
-          >
-            <Flex bg="grey" h="15%" alignItems="center">
-              <Text color="white" ml="10px" fontWeight="medium" fontSize="xl">
-                Estimation Results
+          <Flex h="50px" w="100%" mt="auto" mr="auto">
+            <Box
+              h="35px"
+              as="button"
+              ml="25px"
+              mt="15px"
+              background="#4F608B"
+              borderRadius="7px"
+              p={1}
+              _hover={{ bg: "green" }}
+              onClick={toggleVisibleResults}
+            >
+              <Text
+                fontSize="18px"
+                style={{ color: isVisible ? "yellow" : "white" }}
+              >
+                {isVisible ? "Hide votes" : "Reveal votes"}
               </Text>
-            </Flex>
-
-            <Flex mt="10px" ml="10px">
-              <Text color="white" fontSize="18px" fontWeight="semibold">
-                Average -{" "}
-                <span style={{ color: "tomato" }}>{calculateAverage()} </span>
+            </Box>
+            <Box
+              h="35px"
+              as="button"
+              ml="auto"
+              mr="30px"
+              mt="15px"
+              bg="#9F9791"
+              borderRadius="7px"
+              p={1}
+              _hover={{ bg: "tomato" }}
+              onClick={() => window.location.reload()}
+            >
+              <Text color="white" fontSize="18px">
+                Reset Estimation
               </Text>
-            </Flex>
-            <Flex mt="10px" ml="10px">
-              <Text color="white" fontSize="18px" fontWeight="semibold">
-                Disagreement -
-              </Text>
-            </Flex>
-            <Flex ml="10px" mt="20px">
-              <Text color="white" fontWeight="bold" fontSize="18px">
-                Vote Summary
-              </Text>
-
-              <Text>votes used:</Text>
-            </Flex>
+            </Box>
           </Flex>
-        </HStack>
-      )}
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent bg="#B4B26D">
-            <form>
-              <AlertDialogHeader textColor="#F0F2F5">
-                Enter Your Username
-              </AlertDialogHeader>
-              <AlertDialogBody>
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  ref={cancelRef}
-                />
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Box
-                  h="35px"
-                  w="35px"
-                  as="button"
-                  onClick={handleAlertDialogClose}
-                  textColor="yellow"
-                  bg="#BA3257"
-                  p="2px"
-                  mr="auto"
-                  border="2px solid black"
-                  borderRadius="50%"
-                  _hover={{ bg: "white", textColor: "black" }}
-                >
-                  OK
-                </Box>
-                <Box
-                  as="button"
-                  onClick={() => onClose()}
-                  textColor="yellow"
-                  bg="gray"
-                  p="2px"
-                  ml="auto"
-                  border="2px solid black"
-                  borderRadius="5px"
-                  _hover={{ bg: "white", textColor: "black" }}
-                >
-                  Cancel
-                </Box>
-              </AlertDialogFooter>
-            </form>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+          {isVisible && (
+            <HStack w="95%" mt="20px" ml="20px" mr="auto">
+              //Users and votes
+              <Flex
+                alignItems="flex-start"
+                flexDirection="column"
+                mr="auto"
+                mb="auto"
+                w="50%"
+                h="100%"
+                border="1px solid white"
+              >
+                {voteEntries.map((entry, index) => (
+                  <>
+                    <HStack key={index} spacing="15px" h="100%">
+                      <HStack
+                        alignItems="center"
+                        justifyContent="center"
+                        ml="7px"
+                      >
+                        <Text color="white" fontSize="18px">
+                          Username :
+                        </Text>
+                        <Text color="#0BC6E3" fontSize="18px">
+                          {entry.username}
+                        </Text>
+                      </HStack>
+
+                      <HStack
+                        alignItems="center"
+                        justifyContent="center"
+                        ml="10px"
+                      >
+                        <Text color="white" fontSize="18px">
+                          Vote :
+                        </Text>
+                        <Text color="#0BC6E3" fontSize="18px">
+                          {entry.vote}
+                        </Text>
+                      </HStack>
+                    </HStack>
+                    {index !== voteEntries.length - 1 && <Divider mt="10px" />}
+                  </>
+                ))}
+              </Flex>
+              //Results
+              <Flex
+                border="1px solid white"
+                flexDirection="column"
+                ml="auto"
+                mr="-20px"
+                h="100%"
+                w="30%"
+              >
+                <Flex bg="grey" h="15%" alignItems="center">
+                  <Text
+                    color="white"
+                    ml="10px"
+                    fontWeight="medium"
+                    fontSize="xl"
+                  >
+                    Estimation Results
+                  </Text>
+                </Flex>
+
+                <Flex mt="10px" ml="10px">
+                  <Text color="white" fontSize="18px" fontWeight="semibold">
+                    Average -{" "}
+                    <span style={{ color: "tomato" }}>
+                      {calculateAverage()}{" "}
+                    </span>
+                  </Text>
+                </Flex>
+                <Flex mt="10px" ml="10px">
+                  <Text color="white" fontSize="18px" fontWeight="semibold">
+                    Disagreement -
+                  </Text>
+                </Flex>
+                <Flex ml="10px" mt="20px">
+                  <Text color="white" fontWeight="bold" fontSize="18px">
+                    Vote Summary
+                  </Text>
+
+                  <Text>votes used:</Text>
+                </Flex>
+              </Flex>
+            </HStack>
+          )}
+          <AlertDialog
+            isOpen={isOpen}
+            leastDestructiveRef={cancelRef}
+            onClose={onClose}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent bg="#B4B26D">
+                <form>
+                  <AlertDialogHeader textColor="#F0F2F5">
+                    Enter Your Username
+                  </AlertDialogHeader>
+                  <AlertDialogBody>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      ref={cancelRef}
+                    />
+                  </AlertDialogBody>
+                  <AlertDialogFooter>
+                    <Box
+                      h="35px"
+                      w="35px"
+                      as="button"
+                      onClick={handleAlertDialogClose}
+                      textColor="yellow"
+                      bg="#BA3257"
+                      p="2px"
+                      mr="auto"
+                      border="2px solid black"
+                      borderRadius="50%"
+                      _hover={{ bg: "white", textColor: "black" }}
+                    >
+                      OK
+                    </Box>
+                    <Box
+                      as="button"
+                      onClick={() => onClose()}
+                      textColor="yellow"
+                      bg="gray"
+                      p="2px"
+                      ml="auto"
+                      border="2px solid black"
+                      borderRadius="5px"
+                      _hover={{ bg: "white", textColor: "black" }}
+                    >
+                      Cancel
+                    </Box>
+                  </AlertDialogFooter>
+                </form>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
+        </Flex>
+      </Flex>
     </Flex>
   );
 };

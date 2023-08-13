@@ -1,10 +1,10 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import Board from "./Components/Board";
+import Votes from "./Components/Votes";
 
 function App() {
   return (
     <ChakraProvider>
-      <Board />
+      <Votes />
     </ChakraProvider>
   );
 }
