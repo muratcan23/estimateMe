@@ -19,7 +19,7 @@ const Navbar = () => {
         >
           Estimate
         </Text>
-        <Text fontFamily="heading" fontSize="20px" color="#CFD746">
+        <Text fontFamily="heading" fontSize="20px" color="#D2D8E2">
           Me
         </Text>
       </Flex>
