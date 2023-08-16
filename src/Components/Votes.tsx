@@ -112,63 +112,60 @@ const Votes: React.FC<VotesProps> = () => {
     } else {
       alert("You must enter a valid username!");
     }
-    //console vote entries
-    console.log(voteEntries);
 
-    // //absolute different
-    // const calculateAbsoluteDifference = (average: number) => {
-    //   const absoluteDifferences = voteEntries
-    //     .filter((entry) => !isNaN(parseFloat(entry.vote)))
-    //     .map((entry) => Math.abs(parseFloat(entry.vote) - average));
+    // const calculateDisagreementRate = () => {
+    // this solution is not working .
+    //  we need to find absolute values and than re calculate
+    // const voteCounts = {};
+    // voteEntries.forEach((entry) => {
+    //   if (!isNaN(parseFloat(entry.vote))) {
+    //     voteCounts[entry.vote] = (voteCounts[entry.vote] || 0) + 1;
+    //   }
+    // });
 
-    //   const totalAbsoluteDifference = absoluteDifferences.reduce(
-    //     (total, diff) => total + diff,
-    //     0
-    //   );
-    //   const averageAbsoluteDifference =
-    //     totalAbsoluteDifference / absoluteDifferences.length;
-    //   return averageAbsoluteDifference.toFixed(2);
+    // const sortedVotes = Object.keys(voteCounts).sort(
+    //   (a, b) => voteCounts[b] - voteCounts[a]
+    // );
+
+    // if (sortedVotes.length === 0) {
+    //   return {
+    //     rate: 0,
+    //     label: "N/A",
+    //   };
+    // }
+
+    // const modeVote = sortedVotes[0];
+    // const totalVotes = voteEntries.length;
+    // const disagreeingVotes = voteEntries.filter(
+    //   (entry) => entry.vote.toString() !== modeVote
+    // ).length;
+
+    // const disagreementRate = (disagreeingVotes / totalVotes) * 100;
+
+    // Calculate the label for the disagreement rate
+
+    //   const getDisagreementRateLabel = (rate: number) => {
+    //     if (rate >= 0 && rate <= 20) {
+    //       return "Low";
+    //     } else if (rate > 20 && rate <= 50) {
+    //       return "Medium";
+    //     } else {
+    //       return "High";
+    //     }
+    //   };
+
+    //   const label = getDisagreementRateLabel(disagreementRate);
+
+    //   return {
+    //     rate: disagreementRate.toFixed(2),
+    //     label: label,
+    //   };
     // };
-
-    //disagreement rate
-    const calculateDisagreementRate = () => {
-      const voteCounts = {};
-      voteEntries.forEach((entry) => {
-        if (!isNaN(parseFloat(entry.vote))) {
-          voteCounts[entry.vote] = (voteCounts[entry.vote] || 0) + 1;
-        }
-      });
-
-      const sortedVotes = Object.keys(voteCounts).sort(
-        (a, b) => voteCounts[b] - voteCounts[a]
-      );
-      const modeVote = sortedVotes[0];
-      const totalVotes = voteEntries.length;
-      const disagreeingVotes = voteEntries.filter(
-        (entry) => entry.vote !== modeVote
-      ).length;
-
-      const disagreementRate = (disagreeingVotes / totalVotes) * 100;
-
-      // Calculate the label for the disagreement rate
-      const getDisagreementRateLabel = (rate) => {
-        if (rate >= 0 && rate <= 20) {
-          return "Low";
-        } else if (rate > 20 && rate <= 50) {
-          return "Medium";
-        } else {
-          return "High";
-        }
-      };
-
-      const label = getDisagreementRateLabel(disagreementRate);
-
-      return {
-        rate: disagreementRate.toFixed(2),
-        label: label,
-      };
-    };
   };
+  function calculateDisagreementRate() {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Flex flex="1" alignItems="center" justifyContent="center">
       <Flex
@@ -180,7 +177,6 @@ const Votes: React.FC<VotesProps> = () => {
         flexDirection="column"
         margin="3%"
       >
-        {/* <User {voteEntries[0].}/> */}
         {voteEntries.length > 0 ? (
           <User username={voteEntries[0].username} />
         ) : (
@@ -323,9 +319,8 @@ const Votes: React.FC<VotesProps> = () => {
                   </Text>
                 </Flex>
                 <Flex mt="10px" ml="10px">
-                  <Text color="white" fontSize="18px" fontWeight="semibold">
-                    Disagreement -{}
-                  </Text>
+                  {/* <Text>Disagreement Rate: {label}</Text> */}
+                  Disagreement Rate
                 </Flex>
                 <Flex ml="10px" mt="20px">
                   <Text color="white" fontWeight="bold" fontSize="18px">
