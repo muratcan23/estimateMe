@@ -73,6 +73,8 @@ const Votes: React.FC<VotesProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [vote, setVote] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [disagreementRateCategory, setDisagreementRateCategory] =
+    useState("low");
 
   const handleButtonClick = (buttonValue: string | number) => {
     if (typeof buttonValue === "number") {
@@ -113,58 +115,32 @@ const Votes: React.FC<VotesProps> = () => {
       alert("You must enter a valid username!");
     }
 
-    // const calculateDisagreementRate = () => {
-    // this solution is not working .
-    //  we need to find absolute values and than re calculate
-    // const voteCounts = {};
-    // voteEntries.forEach((entry) => {
-    //   if (!isNaN(parseFloat(entry.vote))) {
-    //     voteCounts[entry.vote] = (voteCounts[entry.vote] || 0) + 1;
-    //   }
-    // });
+    // Calculate disagreement rate
+    const calculateDisagreementRate = () => {
+      const votes = voteEntries
+        .map((entry) => parseFloat(entry.vote))
+        .filter((vote) => !isNaN(vote));
+      const average = parseFloat(calculateAverage()); // Convert average to number
 
-    // const sortedVotes = Object.keys(voteCounts).sort(
-    //   (a, b) => voteCounts[b] - voteCounts[a]
-    // );
+      const absoluteDifferences = votes.map((vote) => Math.abs(vote - average));
+      const totalAbsoluteDifference = absoluteDifferences.reduce(
+        (total, diff) => total + diff,
+        0
+      );
 
-    // if (sortedVotes.length === 0) {
-    //   return {
-    //     rate: 0,
-    //     label: "N/A",
-    //   };
-    // }
+      const disagreementRate = totalAbsoluteDifference / votes.length;
+      return disagreementRate;
+    };
 
-    // const modeVote = sortedVotes[0];
-    // const totalVotes = voteEntries.length;
-    // const disagreeingVotes = voteEntries.filter(
-    //   (entry) => entry.vote.toString() !== modeVote
-    // ).length;
+    const disagreementRate = calculateDisagreementRate();
+    let disagreementRateCategory = "low";
 
-    // const disagreementRate = (disagreeingVotes / totalVotes) * 100;
-
-    // Calculate the label for the disagreement rate
-
-    //   const getDisagreementRateLabel = (rate: number) => {
-    //     if (rate >= 0 && rate <= 20) {
-    //       return "Low";
-    //     } else if (rate > 20 && rate <= 50) {
-    //       return "Medium";
-    //     } else {
-    //       return "High";
-    //     }
-    //   };
-
-    //   const label = getDisagreementRateLabel(disagreementRate);
-
-    //   return {
-    //     rate: disagreementRate.toFixed(2),
-    //     label: label,
-    //   };
-    // };
+    if (disagreementRate >= 0.5) {
+      setDisagreementRateCategory("high");
+    } else if (disagreementRate >= 0.3) {
+      setDisagreementRateCategory("medium");
+    }
   };
-  function calculateDisagreementRate() {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <Flex flex="1" alignItems="center" justifyContent="center">
@@ -318,9 +294,11 @@ const Votes: React.FC<VotesProps> = () => {
                     </span>
                   </Text>
                 </Flex>
+
                 <Flex mt="10px" ml="10px">
-                  {/* <Text>Disagreement Rate: {label}</Text> */}
-                  Disagreement Rate
+                  <Text color="white" fontSize="18px" fontWeight="semibold">
+                    Disagreement Rate -{disagreementRateCategory}
+                  </Text>
                 </Flex>
                 <Flex ml="10px" mt="20px">
                   <Text color="white" fontWeight="bold" fontSize="18px">
