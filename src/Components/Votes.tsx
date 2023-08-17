@@ -135,9 +135,9 @@ const Votes: React.FC<VotesProps> = () => {
     const disagreementRate = calculateDisagreementRate();
     let disagreementRateCategory = "low";
 
-    if (disagreementRate >= 0.5) {
+    if (disagreementRate >= 1.5) {
       setDisagreementRateCategory("high");
-    } else if (disagreementRate >= 0.3) {
+    } else if (disagreementRate >= 0.5) {
       setDisagreementRateCategory("medium");
     }
   };
