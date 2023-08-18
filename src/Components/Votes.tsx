@@ -221,52 +221,52 @@ const Votes: React.FC<VotesProps> = () => {
               </Text>
             </Box>
           </Flex>
-          {isVisible && (
-            <HStack w="95%" mt="20px" ml="20px" mr="auto">
-              //Users and votes
-              <Flex
-                alignItems="flex-start"
-                flexDirection="column"
-                mr="auto"
-                mb="auto"
-                w="50%"
-                h="100%"
-                border="1px solid white"
-              >
-                {voteEntries.map((entry, index) => (
-                  <>
-                    <HStack key={index} spacing="15px" h="100%">
-                      <HStack
-                        alignItems="center"
-                        justifyContent="center"
-                        ml="7px"
-                      >
-                        <Text color="white" fontSize="18px">
-                          Username :
-                        </Text>
-                        <Text color="#0BC6E3" fontSize="18px">
-                          {entry.username}
-                        </Text>
-                      </HStack>
-
-                      <HStack
-                        alignItems="center"
-                        justifyContent="center"
-                        ml="10px"
-                      >
-                        <Text color="white" fontSize="18px">
-                          Vote :
-                        </Text>
-                        <Text color="#0BC6E3" fontSize="18px">
-                          {entry.vote}
-                        </Text>
-                      </HStack>
+          <HStack w="95%" mt="20px" ml="20px" mr="auto">
+            //Users and votes
+            <Flex
+              alignItems="flex-start"
+              flexDirection="column"
+              mr="auto"
+              mb="auto"
+              w="50%"
+              h="100%"
+              border="1px solid white"
+            >
+              {voteEntries.map((entry, index) => (
+                <>
+                  <HStack key={index} spacing="15px" h="100%">
+                    <HStack
+                      alignItems="center"
+                      justifyContent="center"
+                      ml="7px"
+                    >
+                      <Text color="white" fontSize="18px">
+                        Username :
+                      </Text>
+                      <Text color="#0BC6E3" fontSize="18px">
+                        {entry.username}
+                      </Text>
                     </HStack>
-                    {index !== voteEntries.length - 1 && <Divider mt="10px" />}
-                  </>
-                ))}
-              </Flex>
-              //Results
+
+                    <HStack
+                      alignItems="center"
+                      justifyContent="center"
+                      ml="10px"
+                    >
+                      <Text color="white" fontSize="18px">
+                        Vote :
+                      </Text>
+                      <Text color="#0BC6E3" fontSize="18px">
+                        {entry.vote}
+                      </Text>
+                    </HStack>
+                  </HStack>
+                  {index !== voteEntries.length - 1 && <Divider mt="10px" />}
+                </>
+              ))}
+            </Flex>
+            //Results
+            {isVisible && (
               <Flex
                 border="1px solid white"
                 flexDirection="column"
@@ -308,8 +308,8 @@ const Votes: React.FC<VotesProps> = () => {
                   <Text>votes used:</Text>
                 </Flex>
               </Flex>
-            </HStack>
-          )}
+            )}
+          </HStack>
           <AlertDialog
             isOpen={isOpen}
             leastDestructiveRef={cancelRef}
