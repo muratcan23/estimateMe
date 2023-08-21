@@ -9,7 +9,7 @@ const User: React.FC<UserProps> = ({ username }) => {
     <Flex
       w="100%"
       h="10%"
-      bg="#8F5F3F"
+      bg="#d2d8e2"
       alignItems="center"
       justifyContent="center"
     >

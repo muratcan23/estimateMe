@@ -147,7 +147,7 @@ const Votes: React.FC<VotesProps> = () => {
       <Flex
         h="75vh"
         w="90%"
-        border="4px solid #8F7F3F"
+        border="4px solid #d2d8e2"
         borderRadius="4px"
         alignItems="center"
         flexDirection="column"
