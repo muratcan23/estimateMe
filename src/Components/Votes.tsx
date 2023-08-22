@@ -76,6 +76,10 @@ const Votes: React.FC<VotesProps> = () => {
   const [disagreementRateCategory, setDisagreementRateCategory] =
     useState("low");
 
+  const [revealedVotes, setRevealedVotes] = useState<{
+    [username: string]: boolean;
+  }>({});
+
   const handleButtonClick = (buttonValue: string | number) => {
     if (typeof buttonValue === "number") {
       onOpen();
@@ -140,6 +144,14 @@ const Votes: React.FC<VotesProps> = () => {
     } else if (disagreementRate >= 0.5) {
       setDisagreementRateCategory("medium");
     }
+  };
+
+  // show voted or not
+  const handleRevealVote = (username: string) => {
+    setRevealedVotes((prevRevealedVotes) => ({
+      ...prevRevealedVotes,
+      [username]: !prevRevealedVotes[username],
+    }));
   };
 
   return (
@@ -234,7 +246,7 @@ const Votes: React.FC<VotesProps> = () => {
             >
               {voteEntries.map((entry, index) => (
                 <>
-                  <HStack key={index} spacing="15px" h="100%">
+                  {/* <HStack key={index} spacing="15px" h="100%">
                     <HStack
                       alignItems="center"
                       justifyContent="center"
@@ -260,7 +272,38 @@ const Votes: React.FC<VotesProps> = () => {
                         {entry.vote}
                       </Text>
                     </HStack>
+                  </HStack> */}
+                  <HStack key={index} spacing="15px" h="100%">
+                    <HStack
+                      alignItems="center"
+                      justifyContent="center"
+                      ml="7px"
+                    >
+                      <Text color="white" fontSize="18px">
+                        Username :
+                      </Text>
+                      <Text color="#0BC6E3" fontSize="18px">
+                        {entry.username}
+                      </Text>
+                    </HStack>
+                    <HStack
+                      alignItems="center"
+                      justifyContent="center"
+                      ml="10px"
+                    >
+                      <Text color="white" fontSize="18px">
+                        Vote :
+                      </Text>
+                      <Text color="#0BC6E3" fontSize="18px">
+                        {isVisible && revealedVotes[entry.username]
+                          ? entry.vote === "?"
+                            ? "?"
+                            : "✓"
+                          : ""}
+                      </Text>
+                    </HStack>
                   </HStack>
+
                   {index !== voteEntries.length - 1 && <Divider mt="10px" />}
                 </>
               ))}
