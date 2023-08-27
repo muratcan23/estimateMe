@@ -295,11 +295,11 @@ const Votes: React.FC<VotesProps> = () => {
                         Vote :
                       </Text>
                       <Text color="#0BC6E3" fontSize="18px">
-                        {isVisible && revealedVotes[entry.username]
-                          ? entry.vote === "?"
-                            ? "?"
-                            : "✓"
-                          : ""}
+                        {isVisible
+                          ? entry.vote
+                          : entry.vote === "?"
+                          ? "?"
+                          : "✓"}{" "}
                       </Text>
                     </HStack>
                   </HStack>
