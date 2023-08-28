@@ -280,7 +280,7 @@ const Votes: React.FC<VotesProps> = () => {
                       <Text color="white" fontSize="18px">
                         Username :
                       </Text>
-                      <Text color="#0BC6E3" fontSize="18px">
+                      <Text color="tomato" fontSize="18px">
                         {entry.username}
                       </Text>
                     </HStack>
