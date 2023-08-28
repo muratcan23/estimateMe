@@ -56,7 +56,7 @@ const ButtonData: ButtonItem[] = [
   },
   {
     text: "?",
-    value: "",
+    value: "have no idea",
   },
 ];
 
@@ -81,10 +81,8 @@ const Votes: React.FC<VotesProps> = () => {
   }>({});
 
   const handleButtonClick = (buttonValue: string | number) => {
-    if (typeof buttonValue === "number") {
-      onOpen();
-      setVote(buttonValue.toString());
-    }
+    onOpen();
+    setVote(buttonValue.toString());
   };
 
   //See results
