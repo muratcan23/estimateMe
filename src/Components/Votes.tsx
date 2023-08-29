@@ -292,7 +292,7 @@ const Votes: React.FC<VotesProps> = () => {
                       <Text color="white" fontSize="18px">
                         Vote :
                       </Text>
-                      <Text color="#0BC6E3" fontSize="18px">
+                      <Text color="yellow" fontSize="18px">
                         {isVisible
                           ? entry.vote
                           : entry.vote === "have no idea"
