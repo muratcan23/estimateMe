@@ -13,7 +13,7 @@ const User: React.FC<UserProps> = ({ username }) => {
       alignItems="center"
       justifyContent="center"
     >
-      <HStack h="44px" w="44px" bg="#8F7F3F" mr="auto" ml="10px">
+      <HStack h="44px" w="44px" bg="gray" mr="auto" ml="10px">
         <Img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png"
           border="2px solid black"
