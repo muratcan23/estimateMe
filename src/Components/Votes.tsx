@@ -275,7 +275,7 @@ const Votes: React.FC<VotesProps> = () => {
                     <HStack
                       alignItems="center"
                       justifyContent="center"
-                      ml="7px"
+                      ml="10px"
                     >
                       <Text color="white" fontSize="18px">
                         Username :
