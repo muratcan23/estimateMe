@@ -151,6 +151,24 @@ const Votes: React.FC<VotesProps> = () => {
       [username]: !prevRevealedVotes[username],
     }));
   };
+  console.log(voteEntries);
+
+  // Calculate summary
+  const calculateSummary = () => {
+    const summary: { [vote: string]: number } = {}; // Explicitly define the type
+
+    for (const entry of voteEntries) {
+      if (entry.vote in summary) {
+        summary[entry.vote]++;
+      } else {
+        summary[entry.vote] = 1;
+      }
+    }
+
+    return summary;
+  };
+
+  const voteSummary = calculateSummary();
 
   return (
     <Flex flex="1" alignItems="center" justifyContent="center">
@@ -342,11 +360,21 @@ const Votes: React.FC<VotesProps> = () => {
                   </Text>
                 </Flex>
                 <Flex ml="10px" mt="20px">
-                  <Text color="white" fontWeight="bold" fontSize="18px">
-                    Vote Summary
-                  </Text>
+                  {/* Display vote summary */}
+                  <Flex flexDirection="column" p="1px">
+                    <Text fontWeight="bold" color="white" fontSize="18px">
+                      Vote Summary:
+                    </Text>
+                    <Divider />
 
-                  <Text>votes used:</Text>
+                    <Box mt={2}>
+                      {Object.entries(voteSummary).map(([vote, count]) => (
+                        <Text key={vote} color="white">
+                          {vote} voted {count} {count === 1 ? "time" : "times"}
+                        </Text>
+                      ))}
+                    </Box>
+                  </Flex>
                 </Flex>
               </Flex>
             )}
