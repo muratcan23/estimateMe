@@ -74,7 +74,7 @@ const Votes: React.FC<VotesProps> = () => {
   const [vote, setVote] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [disagreementRateCategory, setDisagreementRateCategory] =
-    useState("low");
+    useState("LOW");
 
   const [revealedVotes, setRevealedVotes] = useState<{
     [username: string]: boolean;
@@ -135,12 +135,12 @@ const Votes: React.FC<VotesProps> = () => {
     };
 
     const disagreementRate = calculateDisagreementRate();
-    let disagreementRateCategory = "low";
+    let disagreementRateCategory = "LOW";
 
     if (disagreementRate >= 1.5) {
-      setDisagreementRateCategory("high");
+      setDisagreementRateCategory("HIGH");
     } else if (disagreementRate >= 0.5) {
-      setDisagreementRateCategory("medium");
+      setDisagreementRateCategory("MEDIUM");
     }
   };
 
@@ -356,7 +356,21 @@ const Votes: React.FC<VotesProps> = () => {
 
                 <Flex mt="10px" ml="10px">
                   <Text color="white" fontSize="18px" fontWeight="semibold">
-                    Disagreement Rate -{disagreementRateCategory}
+                    Disagreement Rate -{" "}
+                    <span
+                      style={{
+                        color:
+                          disagreementRateCategory === "LOW"
+                            ? "#67D775"
+                            : disagreementRateCategory === "MEDIUM"
+                            ? "yellow"
+                            : disagreementRateCategory === "HIGH"
+                            ? "red"
+                            : "inherit",
+                      }}
+                    >
+                      {disagreementRateCategory}
+                    </span>
                   </Text>
                 </Flex>
                 <Flex ml="10px" mt="20px">
@@ -369,9 +383,28 @@ const Votes: React.FC<VotesProps> = () => {
 
                     <Box mt={2}>
                       {Object.entries(voteSummary).map(([vote, count]) => (
-                        <Text key={vote} color="white">
-                          {vote} voted {count} {count === 1 ? "time" : "times"}
-                        </Text>
+                        <Flex
+                          key={vote}
+                          alignItems="center"
+                          border="1px solid white"
+                          borderRadius="7px"
+                          p="1px"
+                          bg="green.700"
+                          m="3px"
+                        >
+                          {" "}
+                          {/* You can adjust the Flexbox styles as needed */}
+                          <Text color="yellow">
+                            {" "}
+                            {vote === "have no idea"
+                              ? `No Idea voted ${count} time${
+                                  count === 1 ? "" : "s"
+                                }`
+                              : `${count} vote${
+                                  count === 1 ? "" : "s"
+                                } for ${vote} point${count === 1 ? "" : "s"}`}
+                          </Text>
+                        </Flex>
                       ))}
                     </Box>
                   </Flex>
