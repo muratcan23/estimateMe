@@ -334,7 +334,7 @@ const Votes: React.FC<VotesProps> = () => {
                 h="100%"
                 w="30%"
               >
-                <Flex bg="grey" h="15%" alignItems="center">
+                <Flex bg="grey" h="40px" alignItems="center">
                   <Text
                     color="white"
                     ml="10px"
@@ -348,7 +348,7 @@ const Votes: React.FC<VotesProps> = () => {
                 <Flex mt="10px" ml="10px">
                   <Text color="white" fontSize="18px" fontWeight="semibold">
                     Average -{" "}
-                    <span style={{ color: "tomato" }}>
+                    <span style={{ color: "yellow" }}>
                       {calculateAverage()}{" "}
                     </span>
                   </Text>
