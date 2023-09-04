@@ -173,8 +173,8 @@ const Votes: React.FC<VotesProps> = () => {
   return (
     <Flex flex="1" alignItems="center" justifyContent="center">
       <Flex
-        h="75vh"
-        w="90%"
+        h="86vh"
+        w="95%"
         border="4px solid #d2d8e2"
         borderRadius="4px"
         alignItems="center"
@@ -213,12 +213,18 @@ const Votes: React.FC<VotesProps> = () => {
               </Box>
             ))}
           </Flex>
-          <Flex h="50px" w="100%" mt="auto" mr="auto">
+          <Flex
+            h="50px"
+            w="100%"
+            mt="10px"
+            mr="auto"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Box
               h="35px"
               as="button"
               ml="25px"
-              mt="15px"
               background="#4F608B"
               borderRadius="7px"
               p={1}
@@ -237,7 +243,6 @@ const Votes: React.FC<VotesProps> = () => {
               as="button"
               ml="auto"
               mr="30px"
-              mt="15px"
               bg="#9F9791"
               borderRadius="7px"
               p={1}
