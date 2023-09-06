@@ -194,7 +194,7 @@ const Votes: React.FC<VotesProps> = () => {
           flexDirection="column"
         >
           //mapped data buttons
-          <Flex mb="auto" mr="auto" ml="10px">
+          <Flex mb="auto" mr="auto" ml="40px">
             {ButtonData.map((button) => (
               <Box
                 key={button.text}
@@ -216,7 +216,7 @@ const Votes: React.FC<VotesProps> = () => {
           <Flex
             h="50px"
             w="100%"
-            mt="10px"
+            mt="30px"
             mr="auto"
             alignItems="center"
             justifyContent="center"
