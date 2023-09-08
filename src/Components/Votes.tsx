@@ -395,7 +395,7 @@ const Votes: React.FC<VotesProps> = () => {
                           borderRadius="7px"
                           p="1px"
                           bg="green.700"
-                          m="3px"
+                          m="7px"
                         >
                           {" "}
                           {/* You can adjust the Flexbox styles as needed */}
