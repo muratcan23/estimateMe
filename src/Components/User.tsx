@@ -19,7 +19,12 @@ const User: React.FC<UserProps> = ({ username }) => {
           border="2px solid black"
           borderRadius="5px"
         ></Img>
-        <Text fontFamily="heading" fontSize="2xl" fontWeight="bold">
+        <Text
+          fontFamily="heading"
+          fontSize="2xl"
+          fontWeight="bold"
+          color="#144F18"
+        >
           {username}
         </Text>
       </HStack>
