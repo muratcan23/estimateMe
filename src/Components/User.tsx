@@ -23,7 +23,7 @@ const User: React.FC<UserProps> = ({ username }) => {
           fontFamily="heading"
           fontSize="2xl"
           fontWeight="bold"
-          color="#144F18"
+          color="#EC0122"
         >
           {username}
         </Text>
