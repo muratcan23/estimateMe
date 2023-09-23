@@ -18,7 +18,7 @@ const User: React.FC<UserProps> = ({ username }) => {
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png"
           border="2px solid black"
           borderRadius="5px"
-        ></Img>
+        />
         <Text
           fontFamily="heading"
           fontSize="2xl"

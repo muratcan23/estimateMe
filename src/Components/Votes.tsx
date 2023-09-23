@@ -15,77 +15,30 @@ import {
 import React, { useRef, useState } from "react";
 import User from "./User";
 
-type ButtonItem = {
-  text: string;
-  value: string | number;
-};
-
-//ButtonData will be mapped
-const ButtonData: ButtonItem[] = [
-  {
-    text: "0",
-    value: 0,
-  },
-  {
-    text: "1",
-    value: 1,
-  },
-  {
-    text: "2",
-    value: 2,
-  },
-  {
-    text: "3",
-    value: 3,
-  },
-  {
-    text: "4",
-    value: 4,
-  },
-  {
-    text: "5",
-    value: 5,
-  },
-  {
-    text: "8",
-    value: 8,
-  },
-  {
-    text: "13",
-    value: 13,
-  },
-  {
-    text: "?",
-    value: "have no idea",
-  },
-];
+const POINTS = [0, 1, 2, 3, 4, 5, 8, 13, "?"];
 
 type VoteEntry = {
   username: string;
   vote: string;
 };
 
+type IDISAGREMENT_RATE_CATEGORY = "LOW" | "MEDIUM" | "HIGH";
+
 type VotesProps = {};
 const Votes: React.FC<VotesProps> = () => {
   const [voteEntries, setVoteEntries] = useState<VoteEntry[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLInputElement>(null);
-  const [username, setUsername] = useState<string | null>(null);
   const [vote, setVote] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [disagreementRateCategory, setDisagreementRateCategory] =
-    useState("LOW");
-
-  const [revealedVotes, setRevealedVotes] = useState<{
-    [username: string]: boolean;
-  }>({});
+    useState<IDISAGREMENT_RATE_CATEGORY>("LOW");
 
   const handleButtonClick = (buttonValue: string | number) => {
     onOpen();
     setVote(buttonValue.toString());
   };
 
-  //See results
   const toggleVisibleResults = () => {
     setIsVisible(!isVisible);
   };
@@ -106,7 +59,6 @@ const Votes: React.FC<VotesProps> = () => {
     e.preventDefault();
     const enteredUsername = form.username.value;
     if (enteredUsername !== null && enteredUsername.trim() !== "") {
-      setUsername(enteredUsername);
       // Add a new entry
       setVoteEntries((prevEntries) => [
         ...prevEntries,
@@ -135,7 +87,6 @@ const Votes: React.FC<VotesProps> = () => {
     };
 
     const disagreementRate = calculateDisagreementRate();
-    let disagreementRateCategory = "LOW";
 
     if (disagreementRate >= 1.5) {
       setDisagreementRateCategory("HIGH");
@@ -143,15 +94,6 @@ const Votes: React.FC<VotesProps> = () => {
       setDisagreementRateCategory("MEDIUM");
     }
   };
-
-  // show voted or not
-  const handleRevealVote = (username: string) => {
-    setRevealedVotes((prevRevealedVotes) => ({
-      ...prevRevealedVotes,
-      [username]: !prevRevealedVotes[username],
-    }));
-  };
-  console.log(voteEntries);
 
   // Calculate summary
   const calculateSummary = () => {
@@ -167,8 +109,6 @@ const Votes: React.FC<VotesProps> = () => {
 
     return summary;
   };
-
-  const voteSummary = calculateSummary();
 
   return (
     <Flex flex="1" alignItems="center" justifyContent="center">
@@ -193,11 +133,10 @@ const Votes: React.FC<VotesProps> = () => {
           alignItems="center"
           flexDirection="column"
         >
-          //mapped data buttons
           <Flex mb="auto" mr="auto" ml="40px">
-            {ButtonData.map((button) => (
+            {POINTS.map((point) => (
               <Box
-                key={button.text}
+                key={point}
                 as="button"
                 h="35px"
                 w="40px"
@@ -205,10 +144,10 @@ const Votes: React.FC<VotesProps> = () => {
                 bg="#7E8D6B"
                 _hover={{ bg: "#217A54" }}
                 m="10px 0 auto 15px"
-                onClick={() => handleButtonClick(button.value)}
+                onClick={() => handleButtonClick(point)}
               >
                 <Text color="white" fontSize="2xl">
-                  {button.text}
+                  {point}
                 </Text>
               </Box>
             ))}
@@ -255,7 +194,6 @@ const Votes: React.FC<VotesProps> = () => {
             </Box>
           </Flex>
           <HStack w="95%" mt="20px" ml="20px" mr="auto">
-            //Users and votes
             <Flex
               alignItems="flex-start"
               flexDirection="column"
@@ -267,33 +205,6 @@ const Votes: React.FC<VotesProps> = () => {
             >
               {voteEntries.map((entry, index) => (
                 <>
-                  {/* <HStack key={index} spacing="15px" h="100%">
-                    <HStack
-                      alignItems="center"
-                      justifyContent="center"
-                      ml="7px"
-                    >
-                      <Text color="white" fontSize="18px">
-                        Username :
-                      </Text>
-                      <Text color="#0BC6E3" fontSize="18px">
-                        {entry.username}
-                      </Text>
-                    </HStack>
-
-                    <HStack
-                      alignItems="center"
-                      justifyContent="center"
-                      ml="10px"
-                    >
-                      <Text color="white" fontSize="18px">
-                        Vote :
-                      </Text>
-                      <Text color="#0BC6E3" fontSize="18px">
-                        {entry.vote}
-                      </Text>
-                    </HStack>
-                  </HStack> */}
                   <HStack key={index} spacing="15px" h="100%">
                     <HStack
                       alignItems="center"
@@ -329,7 +240,6 @@ const Votes: React.FC<VotesProps> = () => {
                 </>
               ))}
             </Flex>
-            //Results
             {isVisible && (
               <Flex
                 border="1px solid white"
@@ -352,16 +262,16 @@ const Votes: React.FC<VotesProps> = () => {
 
                 <Flex mt="10px" ml="10px">
                   <Text color="white" fontSize="18px" fontWeight="semibold">
-                    Average -{" "}
+                    Average -
                     <span style={{ color: "yellow" }}>
-                      {calculateAverage()}{" "}
+                      {calculateAverage()}
                     </span>
                   </Text>
                 </Flex>
 
                 <Flex mt="10px" ml="10px">
                   <Text color="white" fontSize="18px" fontWeight="semibold">
-                    Disagreement Rate -{" "}
+                    Disagreement Rate -
                     <span
                       style={{
                         color:
@@ -387,30 +297,30 @@ const Votes: React.FC<VotesProps> = () => {
                     <Divider />
 
                     <Box mt={2}>
-                      {Object.entries(voteSummary).map(([vote, count]) => (
-                        <Flex
-                          key={vote}
-                          alignItems="center"
-                          border="1px solid white"
-                          borderRadius="7px"
-                          p="1px"
-                          bg="green.700"
-                          m="7px"
-                        >
-                          {" "}
-                          {/* You can adjust the Flexbox styles as needed */}
-                          <Text color="yellow">
-                            {" "}
-                            {vote === "have no idea"
-                              ? `No Idea voted ${count} time${
-                                  count === 1 ? "" : "s"
-                                }`
-                              : `${count} vote${
-                                  count === 1 ? "" : "s"
-                                } for ${vote} point${count === 1 ? "" : "s"}`}
-                          </Text>
-                        </Flex>
-                      ))}
+                      {Object.entries(calculateSummary()).map(
+                        ([vote, count]) => (
+                          <Flex
+                            key={vote}
+                            alignItems="center"
+                            border="1px solid white"
+                            borderRadius="7px"
+                            p="1px"
+                            bg="green.700"
+                            m="7px"
+                          >
+                            {/* You can adjust the Flexbox styles as needed */}
+                            <Text color="yellow">
+                              {vote === "have no idea"
+                                ? `No Idea voted ${count} time${
+                                    count === 1 ? "" : "s"
+                                  }`
+                                : `${count} vote${
+                                    count === 1 ? "" : "s"
+                                  } for ${vote} point${count === 1 ? "" : "s"}`}
+                            </Text>
+                          </Flex>
+                        )
+                      )}
                     </Box>
                   </Flex>
                 </Flex>
